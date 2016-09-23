@@ -9,30 +9,6 @@ block('seed-list-item').content()(function () {
 
     var msg = seed.msg;
 
-    var reNick = '@[a-z0-9_-]+';
-    var reHash = '#[^\\s]+';
-    var reLink = 'https?:\\/\\/[^\\s]+';
-    msg = msg.split(new RegExp('(^|\\s)(' + reNick + '|' + reHash + '|' + reLink + ')', 'i'));
-    msg = msg.map(function (word) {
-        if (word.length) {
-            word = new RegExp('^' + reNick + '$', 'i').test(word) ? {
-                block: 'link',
-                url: '/profile/' + word.substr(1),
-                content: word
-            } : new RegExp('^' + reHash + '$').test(word) ? {
-                block: 'link',
-                url: '/search/?text=' + encodeURIComponent(word),
-                content: word
-            } : new RegExp('^' + reLink + '$', 'i').test(word) ? {
-                block: 'link',
-                url: word,
-                content: word,
-                target: '_blank'
-            } : word;
-        }
-        return word
-    });
-
     return [
         {
             elem: 'item',
