@@ -23,15 +23,19 @@ provide(attach.decl({ modName: 'preview', modVal: 'image' }, {
         this.elem('file').length && BEMDOM.destruct(this.elem('file'));
         var files = this.elem('control')[0].files;
 
+        this.dropElemCache('file');
+
         if (/(png|jpg|jpeg|gif)$/i.test(fileName) && window.FileReader && files && files[0]) {
 
             var reader = new FileReader();
             var self = this;
             reader.onload = function (e) {
-                preview = '<img src="' + e.target.result + '">';
-                appendPreview.call(self);
+                self.elem('file').find('img')[0].src = e.target.result;
+                self.emit('loadPreview', false);
             };
             reader.readAsDataURL(files[0]);
+            this.emit('loadPreview', true);
+            appendPreview.call(self);
 
         } else {
             this._updateFileElem();
@@ -44,13 +48,13 @@ provide(attach.decl({ modName: 'preview', modVal: 'image' }, {
                 this.__self.buildClass('file') + ' ' + this.__self.buildClass('file-image') + '">' +
                 '<span class="' +
                 this.__self.buildClass('image') + '">' +
-                preview +
+                '<img>' +
                 '</span>' +
                 '<span class="' + this.__self.buildClass('clear') + '"/>' +
                 '</span>');
         }
 
-        return this.dropElemCache('file');
+        return this;
     }
 }));
 
