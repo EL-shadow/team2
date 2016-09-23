@@ -5,6 +5,7 @@
 
 block('addSeed')(
     tag()('form'),
+    js()(true),
     attrs()(function() {
         return {
             action: '/seed/add',

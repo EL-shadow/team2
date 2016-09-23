@@ -37,6 +37,10 @@ block('addSeed').content()(function () {
                     },
                     text:'Добавить фото'
                 }
+            },
+            {
+                block : 'spin',
+                mods : { theme : 'islands', size : 'm' }
             }
         ]
     }
