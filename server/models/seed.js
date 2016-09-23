@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 var ObjectId = require('mongoose').Types.ObjectId;
 var re = {
     nick: '@[a-z0-9_-]+',
-    hash: '#[^\\s]+',
+    hash: '#[^\\s#]+',
     link: 'https?:\\/\\/[^\\s]+'
-
 };
 
 var schema =  new Schema({
